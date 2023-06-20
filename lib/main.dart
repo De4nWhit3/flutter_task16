@@ -43,28 +43,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Dean\'s Quiz App'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Provider.of<GameService>(context, listen: false).toggleTheme();
-            },
-            icon: const Icon(Icons.star),
-          ),
-        ],
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Dean\'s Quiz App'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Provider.of<GameService>(context, listen: false).toggleTheme();
+              },
+              icon: const Icon(Icons.star),
             ),
           ],
         ),
-      ),
-    );
+        body: GridView.count(
+          crossAxisCount: 2,
+          children: List.generate(
+              Provider.of<GameService>(context, listen: false).questions.length,
+              (questionIndex) {
+            return const Placeholder();
+          }),
+        ));
   }
 }
