@@ -1,7 +1,14 @@
+import 'package:assignment_16/services/game_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'dart_classes/game_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => GameService(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -9,13 +16,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(),
+    return Consumer<GameService>(
+      builder: (context, gameService, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          themeMode:
+              gameService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+          theme: GameTheme.lightTheme,
+          darkTheme: GameTheme.darkTheme,
+          home: const MyHomePage(),
+        );
+      },
     );
   }
 }
@@ -34,6 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Dean\'s Quiz App'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<GameService>(context, listen: false).toggleTheme();
+            },
+            icon: const Icon(Icons.star),
+          ),
+        ],
       ),
       body: const Center(
         child: Column(
