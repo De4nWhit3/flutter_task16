@@ -14,7 +14,7 @@ class GameService extends ChangeNotifier {
             'It sounds similar to Atlantis.',
             'It starts and ends with an A.'
           ],
-          imageURL: 'assets/images/Atlanda_Front.webp',
+          imageURL: 'assets/images/Atlanta_Front.webp',
           category: 'cars'),
     );
     questions.add(
