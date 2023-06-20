@@ -81,6 +81,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Image.asset(question.imageURL),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 99, 97, 97),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              child: IconButton(
+                                onPressed: () {
+                                  gameService.toggleHint(question, 0);
+                                },
+                                icon: const Icon(Icons.lightbulb),
+                              ),
+                            ),
+                            AnimatedPositioned(
+                              left: question.hints[0].visible ? 40 : -200,
+                              top: 10,
+                              duration: const Duration(
+                                milliseconds: 200,
+                              ),
+                              child: Text(question.hints[0].text),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),

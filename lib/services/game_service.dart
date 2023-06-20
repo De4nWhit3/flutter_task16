@@ -11,8 +11,8 @@ class GameService extends ChangeNotifier {
           question: 'What car is this?',
           answer: 'Atlanta',
           hints: [
-            'It sounds similar to Atlantis.',
-            'It starts and ends with an A.'
+            Hint(text: 'It sounds similar to Atlantis.'),
+            Hint(text: 'It starts and ends with an A.'),
           ],
           imageURL: 'assets/images/Atlanta_Front.webp',
           category: 'cars'),
@@ -21,7 +21,10 @@ class GameService extends ChangeNotifier {
       Question(
           question: 'What car is this?',
           answer: 'Cape MK4',
-          hints: ['It has the letters MK in it.', 'It contains the number 4.'],
+          hints: [
+            Hint(text: 'It has the letters MK in it.'),
+            Hint(text: 'It contains the number 4.'),
+          ],
           imageURL: 'assets/images/Cape_MK4_Front.webp',
           category: 'cars'),
     );
@@ -30,8 +33,8 @@ class GameService extends ChangeNotifier {
           question: 'What car is this?',
           answer: 'Supernova',
           hints: [
-            'It happens in space.',
-            'It\'s one word that contains "nova".'
+            Hint(text: 'It happens in space.'),
+            Hint(text: 'It\'s one word that contains "nova".'),
           ],
           imageURL: 'assets/images/Supernova_Front.webp',
           category: 'cars'),
@@ -40,6 +43,11 @@ class GameService extends ChangeNotifier {
 
   void toggleTheme() {
     isDarkModeOn = !isDarkModeOn;
+    notifyListeners();
+  }
+
+  void toggleHint(Question question, int index) {
+    question.hints[index].toggleHint();
     notifyListeners();
   }
 }
